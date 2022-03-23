@@ -10,19 +10,19 @@
 <body>
     <div class="center">
         <h1>Login</h1>
-        <form method="post">
+        <form id="form">
             <div class="txt_field">
-                <input type="text" required>
+                <input type="text" id="username" required>
                 <span></span>
                 <label>Username</label>
             </div>
             <div class="txt_field">
-                <input type="password" required>
+                <input type="password" id="password" required>
                 <span></span>
                 <label>Password</label>
             </div>
             <div class="pass">Forgot Password?</div>
-            <input type="submit" value="Login">
+            <button id="loginButton" type="submit">Login</button>
             <div class="signup_link">
                 Not a member? <a href="#">Signup</a>
             </div>
@@ -30,4 +30,5 @@
     </div>
     
 </body>
+    <script src="./validation.js"></script>
 </html>
