@@ -113,8 +113,6 @@ img {
     background-color: rgb(0, 51, 77);
     text-align: center;
     order: 2;
-    
-    
 }
 
 .content {
@@ -228,3 +226,73 @@ h4 {
     color: white;
   }
   
+
+
+
+
+
+
+
+
+
+
+
+  .bodycolor{
+    background-color: rgb(0, 51, 77);
+    color: whitesmoke
+  }
+
+  .col-sm{
+    background-color: rgb(24,24,24);
+    color: whitesmoke
+  }
+
+ .card-title{
+    background-color: rgb(0, 51, 77);
+    color: whitesmoke
+ }
+
+ .card-text{
+     text-align:justify;
+    background-color: rgb(0, 51, 77);
+    color: whitesmoke
+ }
+ 
+ .card-body{
+    background-color: rgb(0, 51, 77);
+    color: whitesmoke
+ }
+ 
+ 
+h6{
+    text-align: center;
+    background-color: rgb(24,24,24);
+    color: whitesmoke
+
+}
+
+
+
+
+.header{
+        background: linear-gradient(-45deg, rgb(0, 51, 77), rgb(24,24,24), gray, whitesmoke);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+    }
+    
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    
+
+
+
+
