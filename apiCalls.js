@@ -4,14 +4,6 @@
 
 const moment = require('moment')
 
-let testDate = "15 Jun 1992"
-let date = moment(testDate, "DD MMM YYYY").format("MMM Do YY"); // gotta specify format going in
-
-let howLongAgo = moment(testDate, "DD MMM YYYY").fromNow();
-
-console.log(date)
-console.log(howLongAgo)
-
 // create an event handler
 document.getElementById("button").addEventListener('click', getMovie)
 
