@@ -1,47 +1,47 @@
-// Utilize both the OMDB and TMBD APIs for the "move getter" page
-// The OMDB API call(s) will extract selected movie information, namely reviews from three sources
-// The TMDB API will be used to extract the recommendations
-// Use helper functions to keep code cleaner
+// This is the JS code to execute two API calls -> OMDB API and TMDB API
+// OMDB is used to create a "smart" search (can guess movie based on key words), to gather basic movie info, and reviews
+// TMDB is used to create a list of recommended movies that the user may also like
 
-// we need an event handler first
+const moment = require('moment')
+
+let testDate = "15 Jun 1992"
+let date = moment(testDate, "DD MMM YYYY").format("MMM Do YY"); // gotta specify format going in
+
+let howLongAgo = moment(testDate, "DD MMM YYYY").fromNow();
+
+console.log(date)
+console.log(howLongAgo)
+
+// create an event handler
 document.getElementById("button").addEventListener('click', getMovie)
 
-// the variables eventually need to be dynamic, but for now...
+// create a function called "getMovie" that holds all the API calls
 function getMovie() {
-    let movieTitle = document.getElementById("movieTitle").value
-    let apiKey = document.getElementById("key1").value
+    let movieTitle = document.getElementById("movieTitle").value // user inputs values
+    let apiKey =  document.getElementById("key1").value
     let apiKey2 = document.getElementById("key2").value
     let movieObj = {}
 
-    /* Want error to be lightweight as possible
-    just use form validation in HTML
-    When someone click button, they have to get through various code before getting to botton
-    Have to execute unnecessary code in function to get to if statement
-    function calls take  up memory
-    Consider form validation for empty string situations - easily caught stricly HTML side
-    one downside of alert, not used in errors anymore (old school)
-    leave the error in the specific box empty
-    */
-    if(movieTitle == "" || apiKey == "" || apiKey2 == "") {
+    if(movieTitle == "" || apiKey == "" || apiKey2 == "") { // cannot leave any fields blank (NOTE: HTML "required" attribute only works with submit)
         alert("ERROR: fields cannot be blank");
     }
     else {
-        fetch(`http://www.omdbapi.com/?s=${movieTitle}&apikey=${apiKey}&type=movie`) // let's pull the movie someone is searching for (smarter search)
+        fetch(`http://www.omdbapi.com/?s=${movieTitle}&apikey=${apiKey}&type=movie`) // let's find the movie the user is looking for
         .then(response => {
             return response.json()
         })
-        .then(data => {
+        .then(data => { // if the API call produces an error, return the error to the user, if not proceed through the code
             if (data.Response == "True") {
                 return data
             } else {
-                alert(data.Error) // again don't consider alert, render something to screen (simple p tag or red box)
+                alert(data.Error)
             }
         })
         .then(data => { 
-            return data.Search[0].imdbID // get the first movie's ID
+            return data.Search[0].imdbID // select the first movie in the query list (closest match to user's search)
         })
         .then(data => {
-            reviews = fetch(`http://www.omdbapi.com/?i=${data}&apikey=${apiKey}&type=movie&plot=full`) // let's add all the movie details we care about
+            reviews = fetch(`http://www.omdbapi.com/?i=${data}&apikey=${apiKey}&type=movie&plot=full`) // let's extract movie details we care about
             .then(response => {
                 return response.json()
             })
@@ -49,7 +49,7 @@ function getMovie() {
                 movieObj = {
                     imdbId: data.imdbID,            
                     title: data.Title,
-                    released: data.Released,
+                    released: moment(data.Released, "DD MMM YYYY").format("MMM DD, YYYY") + ` (${moment(data.Released, "DD MMM YYYY").fromNow()})`,
                     actors: data.Actors,
                     director: data.Director,
                     awards: data.Awards,
@@ -59,13 +59,12 @@ function getMovie() {
                     plot: data.Plot,
                     poster: data.Poster,
                     reviews: data.Ratings
-                    
                 }
                 return movieObj
             })
             return reviews
         })
-        .then(data => { // let's render some of the stuff for the first half of the page
+        .then(data => { // let's render the movie details to the upper portion of the page
             document.getElementById('output-poster').src = data.poster
             document.getElementById('output-title').innerHTML = "<b>Title: </b>" + data.title
             document.getElementById('output-released').innerHTML = "<b>Released: </b>" + data.released
@@ -77,8 +76,7 @@ function getMovie() {
             document.getElementById('output-awards').innerHTML = "<b>Awards: </b>" + data.awards
             document.getElementById('output-plot').innerHTML = "<i>" + data.plot + "</i>"
     
-            /* if statement checking length of the data, if data is >= 3, limit for loop*/
-            for(i=0; i<3; i++) { // make dynamic, because sometimes there are less than three review sources
+            for(i=0; i<3; i++) { // we want this to always run three times (max number of reviews) to prevent incorrect info from displaying
                 try {
                     elementId1 = 'output-source' + String(i+1)
                     elementId2 = 'output-rating' + String(i+1)
@@ -93,14 +91,8 @@ function getMovie() {
             return data
         })
 
-        /* generally with fetch calls, can move it out of .then
-        doesn't need to be chained because data from previous fetch call not used here
-        if that fetch call doesn't need data from previous, can be removed all together
-        helps with readability
-        in addition, use helper functions at this point forward
-        */
-        .then(obj => {
-            tmdbId = fetch(`https://api.themoviedb.org/3/find/${obj.imdbId}?api_key=${apiKey2}&language=en-US&external_source=imdb_id`) // lets use the IMDB id to find the TMDB id
+        .then(obj => { // now we want recommendations, but we first need to find the corresponding TMDB unique identifier
+            tmdbId = fetch(`https://api.themoviedb.org/3/find/${obj.imdbId}?api_key=${apiKey2}&language=en-US&external_source=imdb_id`)
             .then(response => {
                 return response.json()
             })
@@ -109,9 +101,9 @@ function getMovie() {
             })
             return tmdbId
         })
-        .then(id => {
+        .then(id => { // now let's use the TMDB ID to find recommendations
             let recsArray = []
-            recs = fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${apiKey2}&language=en-US&page=1`) // lets use the TMDB id to find recommendations
+            recs = fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${apiKey2}&language=en-US&page=1`)
             .then(response => {
                 return response.json()
             })
@@ -123,7 +115,7 @@ function getMovie() {
             })
             return recs
         })
-        .then(data => { // let's render some of the stuff for the second half of the
+        .then(data => { // let's render the recommendations to the bottom part of the screen
             document.getElementById("output-recs-img1").src = "https://image.tmdb.org/t/p/w500" + data[0].poster
             document.getElementById("output-recs-title1").innerHTML = data[0].title
             document.getElementById("output-recs-synopsis1").innerHTML = data[0].overview
