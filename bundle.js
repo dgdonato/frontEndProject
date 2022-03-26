@@ -19,7 +19,7 @@ function getMovie() {
         alert("ERROR: fields cannot be blank");
     }
     else {
-        fetch(`http://www.omdbapi.com/?s=${movieTitle}&apikey=${apiKey}&type=movie`) // let's find the movie the user is looking for
+        fetch(`https://www.omdbapi.com/?s=${movieTitle}&apikey=${apiKey}&type=movie`) // let's find the movie the user is looking for
         .then(response => {
             return response.json()
         })
@@ -34,7 +34,7 @@ function getMovie() {
             return data.Search[0].imdbID // select the first movie in the query list (closest match to user's search)
         })
         .then(data => {
-            reviews = fetch(`http://www.omdbapi.com/?i=${data}&apikey=${apiKey}&type=movie&plot=full`) // let's extract movie details we care about
+            reviews = fetch(`https://www.omdbapi.com/?i=${data}&apikey=${apiKey}&type=movie&plot=full`) // let's extract movie details we care about
             .then(response => {
                 return response.json()
             })
