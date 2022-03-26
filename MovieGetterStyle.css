@@ -7,6 +7,7 @@ h1 {
 
 body {
     background-color: rgb(0, 51, 77);
+    font-family: "Play", sans-serif;
 }
 
 a:hover {
@@ -36,7 +37,7 @@ hr {
 }
 
 img {
-    float: right; 
+    float: left; 
     margin: 3px;
     shape-margin: 5rem;  
 }
@@ -167,7 +168,7 @@ li {
 }
 
 p {
-    background-color: whitesmoke;
+    color: whitesmoke;
 }
 
 h2 {

@@ -6,74 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie API</title>
     <link rel="stylesheet" href="./MovieGetterStyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Play">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
 </head>
 <body class="bodycolor">
     <form>
         <fieldset>
             <legend>Movie Archive Grid:</legend class="bigtitle">
-            <label for="title">Movie Name:</label class="label">
-            <input type="text" name="title" id="title" placeholder="Movie name"></input>
+            <label for="movieTitle">Movie Name:</label class="label">
+            <input type="text" name="movieTitle" id="movieTitle" placeholder="Movie name"></input>
             <br>
-            <label for="key">FirstKey Placeholder:</label>
-            <input type="text" name="key" id="key" placeholder="Key"></input>
+            <label for="key1">OMDB API Key:</label>
+            <input type="password" name="key1" id="key1" placeholder="Key"></input>
             <br>
-            <label for="key">SecondKey Placeholder:</label>
-            <input type="text" name="key" id="key" placeholder="Key"></input>
+            <label for="key2">TMDB API Key:</label>
+            <input type="password" name="key2" id="key2" placeholder="Key"></input>
         </fieldset>
-        <button type="button" id="movie">Click to Get Movie Info:</button>
-       
+        <button type="button" id="button">Click to Get Movie Info:</button>
     </form>
+    <div class="lv-bars lg lv-mid lvt-5 lvb-3" data-label="Loading..."></div>
     <hr>
-    <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            Title:
-          </div>
-          <div class="col-sm" id="output-title">
-            [insert title]
-          </div>
+    <div class="container-flex">
+      <div class="row">
+        <div class="col" >
+          <img src="..." id="output-poster"/>
         </div>
-        <div class="row">
-            <div class="col-sm">
-              Year:
-            </div>
-            <div class="col-sm" id="output-year">
-              [insert year]
-            </div>
+        <div class="col">
+          <h5>Key Info:</h5>
+          <p id="output-title"></p>
+          <p id="output-released"></p>
+          <p id="output-runtime"></p>
+          <p id="output-rated"></p>
+          <p id="output-genre"></p>
+          <p id="output-actors"></p>
+          <p id="output-director"></p>
+          <p id="output-awards"></p>
         </div>
-        <div class="row">
-            <div class="col-sm">
-              Synopsis: 
-            </div>
-            <div class="col-sm" id="output-rating">
-              [insert synopsis]
-            </div>
+        <div class="col">
+          <h5>Synopsis:</h5>
+          <p id="output-plot"></p>
         </div>
       </div>
+    </div>
+
       <hr>
       <h6>&darr;&darr;&darr;&darr;&darr;&darr;&darr; Movie Ratings: &darr;&darr;&darr;&darr;&darr;&darr;&darr;</h6 class="ratingmovie">  
       <div class="card-group">
         <div class="card">
-          <img src="..." class="card-img-top" alt="...">
           <div class="card-body">
-            <img src="../frontEndProject/Images/rottonlogo.jpeg"   alt=" Movie Logo:" width=150px length=150px>
-            <h5 class="card-text">SCORE: </h5>
+            <img src="../frontEndProject/Images/imbdlogoTHREE.png"   alt=" Movie Logo:" width=150px length=150px>
+            <p class="card-text" id="output-source1">Source:</p>
+            <p class="card-text" id="output-rating1">Score:</p> 
 
           </div>
         </div>
         <div class="card">
-          <img src="..." class="card-img-top" alt="...">
           <div class="card-body">
-            <img src="../frontEndProject/Images/imbdlogoTHREE.png"   alt=" Movie Logo:" width=145px length=150px>
-            <h5 class="card-text">SCORE:</h5>
+            <img src="../frontEndProject/Images/rottonlogo.jpeg"   alt=" Movie Logo:" width=145px length=150px>
+            <p class="card-text" id="output-source2">Source:</p>
+            <p class="card-text" id="output-rating2">Score:</p>
             
           </div>
         </div>
         <div class="card">
-          <img src="..." class="card-img-top" alt="...">
           <div class="card-body">
             <img src="../frontEndProject/Images/metacriticlogoTWO.jpeg"   alt=" Movie Logo:" width=146px length=150px>
-            <h5 class="card-text">SCORE:</h5>
+            <p class="card-text" id="output-source3">Source:</p>
+            <p class="card-text" id="output-rating3">Score:</p>
           </div>
         </div>
       </div>
@@ -82,31 +81,32 @@
       <h6>&darr;&darr;&darr;&darr;&darr;&darr;&darr; Additional Movies You May Like: &darr;&darr;&darr;&darr;&darr;&darr;&darr;</h6>  
       <div class="card-group">
         <div class="card">
-          <img src="..." class="card-img-top" alt="...">
+          <img src="..." class="card-img-top" alt="..." id="output-recs-img1">
           <div class="card-body">
-            <h5 class="card-title">Title:</h5>
-            <p class="card-text">Synopsis:</p>
-
+            <h5 class="card-title" id="output-recs-title1">Title:</h5>
+            <p class="card-text" id="output-recs-synopsis1">Synopsis:</p>
           </div>
         </div>
         <div class="card">
-          <img src="..." class="card-img-top" alt="...">
+          <img src="..." class="card-img-top" alt="..." id="output-recs-img2">
           <div class="card-body">
-            <h5 class="card-title">Title:</h5>
-            <p class="card-text">Synopsis:</p>
-            
+            <h5 class="card-title" id="output-recs-title2">Title:</h5>
+            <p class="card-text" id="output-recs-synopsis2">Synopsis:</p>
           </div>
         </div>
         <div class="card">
-          <img src="..." class="card-img-top" alt="...">
+          <img src="..." class="card-img-top" alt="..." id="output-recs-img3">
           <div class="card-body">
-            <h5 class="card-title">Title:</h5>
-            <p class="card-text">Synopsis:</p>
+            <h5 class="card-title" id="output-recs-title3">Title:</h5>
+            <p class="card-text" id="output-recs-synopsis3">Synopsis:</p>
           </div>
         </div>
       </div>
+
+
 </body>
-<script src=Add JS FILE ></script>
+<script src="./apiCalls.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="bundle.js"></script>
 </html>
