@@ -293,7 +293,11 @@ h6{
         }
     }
     
-
+#errorHandling {
+    color:red;
+    background: yellow;
+    width: fit-content;
+}
 
 
 
