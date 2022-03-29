@@ -28,8 +28,17 @@ This section lists all languages/frameworks/libraries/platforms used to create o
 * JIRA
 
 The links to the two APIs used are as follows:
+
 * **OMDB:** http://www.omdbapi.com
 * **TMDB:** https://www.themoviedb.org
+
+## Future Features
+
+* Carousel of all movie images
+* Be able to query best movies by genre and by year (additional page)
+* Expand to include TV shows in addition to movies
+* Add a functional feedback e-mail where requests are sent to creators for review
+* When filling out e-mail in "forgot password" field, the send button directs user back to login page while also receiving email with link to reset password
 
 ## Authors/Creators: 
 
