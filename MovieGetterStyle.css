@@ -368,3 +368,7 @@ h6{
     background-color: yellow;
     width: fit-content;
 }
+
+.main > p {
+    background-color: white;
+}
