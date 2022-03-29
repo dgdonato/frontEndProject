@@ -8,7 +8,7 @@ A user can simply type in the keywords related to any movie of their choice, the
 
 1)  **Aggregating movie scores.** This website allows you to view movie scores from three popular sources being Rotten Tomatoes, IMDb, and Metacritic. We extract the movie scores using the OMDb API, which is also used for extracting a variety of other useful information such as a movie’s year of release, synopsis, list of actors, director(s), and so forth.
 
-2) **Generate movie recommendations.** We also show three recommended films based on the user's search. The list of recommendations come from the TMDB API, which allows us to generate a list of films of a similar genre that are highly rated. Simlar to the movie scores, the results are shown in the format of Bootstrap cards.
+2) **Generate movie recommendations.** We also show three recommended films based on the user's search. The list of recommendations come from the TMDB API, which allows us to generate a list of films of a similar genre that are highly rated. Similar to the movie scores, the results are shown in the format of Bootstrap cards.
 
 ## Technologies Used:
 
@@ -17,7 +17,7 @@ This section lists all languages/frameworks/libraries/platforms used to create o
 * HTML
 * CSS
 * Javascript
-* Boostrap
+* Bootstrap
 * Moment.js
 * NPM
 * Browserify
