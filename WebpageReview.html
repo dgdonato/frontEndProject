@@ -1,0 +1,50 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reviews/Feedbacks</title>
+        <link rel="stylesheet" href="./MovieGetterStyle.css">
+    </head>
+    <body>
+        <h1 class="title2">Reviews & Feedbacks</h1>
+        <div style="text-align:center">  
+            <button><a href="MovieGetterAboutUs.html">Click For Home Page:</a></button>
+            <button><a href="MovieGetterPage.html">Click For Movie Grid Page:</a></button>
+            <button><a href="MovieGetterLoginPage.html">Click For Login Page:</a></button>
+           
+            
+
+            <div class= "feedback" style="padding-bottom: 18px;">Title:<span style="color: red;"> *</span><br/>
+            <input type="text" id="data" name="data" style="max-width : 450px;" class="form-control"/>
+            </div>
+            <div class= "feedback" style="padding-bottom: 18px;">Review/Feedback:<span style="color: red;"> *</span><br/>
+            <textarea type="text" id="data"  name="data" style="max-width : 450px;" rows="9" class="form-control"></textarea>
+            </div>
+            <div style="text-align:center">   
+            <button  onclick="myFunction()">Submit</button>
+            </div>
+            <p class= "popup" id="pop up message"></p> 
+            <script>
+            function myFunction() {
+              let text = "Thank You For Your Honest Feedback!!!";
+              if (confirm(text) == true) {
+                text = "&#128522; Hooray Your Review/Feedback Has Been Successfully Submitted!!! &#128522;";
+              } else {
+                text = "";
+              } 
+              document.getElementById("pop up message").innerHTML = text;
+            } 
+            </script>    
+
+    </body>
+    <div style="text-align:center"> 
+    <footer>
+            <span class= "emoji" style='font-size:50px;'>&#128512;</span>
+            <span class= "emoji" style='font-size:75px;'>&#128515;</span>   
+            <span class= "emoji" style='font-size:100px;'>&#128516;</span>
+            
+    </footer>
+    </html>
+   
