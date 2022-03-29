@@ -168,10 +168,6 @@ li {
 
 }
 
-p {
-    background-color: whitesmoke;
-}
-
 h2 {
     color: gray
 }
@@ -365,4 +361,10 @@ h6{
     100% {
         background-position: 0% 50%;
     }
+}
+
+#errorHandling {
+    color: red;
+    background-color: yellow;
+    width: fit-content;
 }

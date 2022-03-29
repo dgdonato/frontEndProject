@@ -1,23 +1,24 @@
 // This is the JS code to execute two API calls -> OMDB API and TMDB API
-// OMDB is used to create a "smart" search (can guess movie based on key words), to gather basic movie info, and reviews
+// OMDB is used to create a "smart" search (can guess movie based on key words), and to gather basic movie info including reviews
 // TMDB is used to create a list of recommended movies that the user may also like
 
-const moment = require('moment')
+const moment = require('moment') // used the JS moment library
 
-// create an event handler
+// create an event handler for the search button
 document.getElementById("button").addEventListener('click', getMovie)
 
-// create a function called "getMovie" that holds all the API calls
+// create a function called "getMovie" that executes API calls and renders info to the screen
 function getMovie() {
-    let movieTitle = document.getElementById("movieTitle").value // user inputs values
+    let movieTitle = document.getElementById("movieTitle").value // user inputted values
     let apiKey =  document.getElementById("key1").value
     let apiKey2 = document.getElementById("key2").value
     let movieObj = {}
 
     if(movieTitle == "" || apiKey == "" || apiKey2 == "") { // cannot leave any fields blank (NOTE: HTML "required" attribute only works with submit)
-        alert("ERROR: fields cannot be blank");
+        document.getElementById('errorHandling').innerHTML = "<b>ERROR:</b> Please fill in all fields." 
     }
     else {
+        document.getElementById('errorHandling').innerHTML = "" // clear any old error messages
         fetch(`https://www.omdbapi.com/?s=${movieTitle}&apikey=${apiKey}&type=movie`) // let's find the movie the user is looking for
         .then(response => {
             return response.json()
@@ -26,7 +27,7 @@ function getMovie() {
             if (data.Response == "True") {
                 return data
             } else {
-                alert(data.Error)
+                document.getElementById('errorHandling').innerHTML = "<b>OMDB ERROR: </b>" + data.Error
             }
         })
         .then(data => { 
@@ -68,11 +69,11 @@ function getMovie() {
             document.getElementById('output-awards').innerHTML = "<b>Awards: </b>" + data.awards
             document.getElementById('output-plot').innerHTML = "<i>" + data.plot + "</i>"
     
-            for(i=0; i<3; i++) { // we want this to always run three times (max number of reviews) to prevent incorrect info from displaying
+            for(i=0; i<3; i++) { // edge case: we want to always run this three times (max number of reviews) to ensure old info is overwritten
                 try {
                     elementId1 = 'output-source' + String(i+1)
                     elementId2 = 'output-rating' + String(i+1)
-                    document.getElementById(elementId1).innerHTML = data.reviews[i].Source
+                    document.getElementById(elementId1).innerHTML = "<b>Source: </b>" + data.reviews[i].Source
                     document.getElementById(elementId2).innerHTML = "<b>Score: </b>" + data.reviews[i].Value
                 }
                 catch {
@@ -82,11 +83,17 @@ function getMovie() {
             }
             return data
         })
-
         .then(obj => { // now we want recommendations, but we first need to find the corresponding TMDB unique identifier
             tmdbId = fetch(`https://api.themoviedb.org/3/find/${obj.imdbId}?api_key=${apiKey2}&language=en-US&external_source=imdb_id`)
             .then(response => {
                 return response.json()
+            })
+            .then(data => {
+                if(data.success == false) {
+                    document.getElementById('errorHandling').innerHTML = "<b>TMDB ERROR: </b>" + data.status_message
+                } else {
+                    return data
+                }
             })
             .then(data => {
                 return data.movie_results[0].id
